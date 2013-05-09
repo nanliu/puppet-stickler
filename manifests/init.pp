@@ -1,9 +1,10 @@
+# class: stickler
 class stickler (
   $version  = 'present',
   $path     = '/var/lib/stickler',
-  #  $service  = 'builtin',
   $upstream = 'https://rubygems.org',
   $port     = '6789',
+  $firewall = true
 ) {
 
   package { 'stickler':
@@ -41,6 +42,8 @@ class stickler (
     group => 'apache',
   } ->
 
+  # This is still needed to for multi gem uploads.
+  # apache passenger doesn't work with excon gem in testing.
   service { 'stickler':
     ensure    => running,
     start     => "stickler-server start --daemonize ${path}",
@@ -50,10 +53,10 @@ class stickler (
   }
 
   apache::vhost { 'stickler':
-    ensure     => present,
-    servername => 'gem',
-    port       => 80,
-    docroot    => "${path}/public",
-    configure_firewall => true,
+    ensure             => present,
+    servername         => 'gem',
+    port               => 80,
+    docroot            => "${path}/public",
+    configure_firewall => $firewall,
   }
 }
