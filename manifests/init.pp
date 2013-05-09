@@ -7,10 +7,7 @@ class stickler (
   $firewall = true
 ) {
 
-  package { 'stickler':
-    ensure   => $version,
-    provider => 'gem',
-  }
+  require 'stickler::package'
 
   ensure_resource( 'file', '/root/.gem',
     { 'ensure' => 'directory' }
@@ -23,8 +20,8 @@ class stickler (
     content => template('stickler/stickler.erb'),
   }
 
-  include ::apache
-  include ::passenger
+  include '::apache'
+  include '::passenger'
 
   exec { 'config_stickler':
     command => "stickler-passenger-config apache2 ${path}",
