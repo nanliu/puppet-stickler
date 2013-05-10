@@ -22,6 +22,7 @@ class stickler (
 
   include '::apache'
   include '::passenger'
+  include '::ruby::dev'
 
   exec { 'config_stickler':
     command => "stickler-passenger-config apache2 ${path}",
