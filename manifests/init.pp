@@ -51,10 +51,9 @@ class stickler (
   }
 
   apache::vhost { 'stickler':
-    ensure             => present,
-    servername         => 'gem',
-    port               => 80,
-    docroot            => "${path}/public",
-    configure_firewall => $firewall,
+    ensure     => present,
+    servername => 'gem',
+    port       => 80,
+    docroot    => "${path}/public",
   }
 }
