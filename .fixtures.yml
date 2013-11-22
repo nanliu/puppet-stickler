@@ -1,0 +1,4 @@
+fixtures:
+  repositories:
+    stdlib: 'git://github.com/puppetlabs/puppetlabs-stdlib.git'
+    apache: 'git://github.com/nanliu/puppet-apache.git'
